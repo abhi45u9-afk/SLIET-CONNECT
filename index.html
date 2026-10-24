@@ -263,12 +263,68 @@ function openPage(page) {
             </div>
         `;
     } else if (page === "Timetable") {
-        content.innerHTML = `
-            <div class="notice">
-                <h2>📅 Timetable</h2>
-                <p>Class schedules will be added here.</p>
-                <button onclick="goHome()">Back to Home</button>
+    content.innerHTML = `
+        <div class="notice timetable-page">
+            <h2>📅 Class Timetable</h2>
+            <p>Find your class timetable using the options below.</p>
+
+            <label for="ttYear"><b>Select Year</b></label>
+            <select id="ttYear">
+                <option value="">Choose Year</option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+            </select>
+
+            <label for="ttBranch"><b>Select Branch / Programme</b></label>
+            <select id="ttBranch">
+                <option value="">Choose Branch</option>
+                <option value="Mechanical Engineering">
+                    Mechanical Engineering
+                </option>
+                <option value="Computer Science and Engineering">
+                    Computer Science and Engineering
+                </option>
+                <option value="Electrical Engineering">
+                    Electrical Engineering
+                </option>
+                <option value="Chemical Engineering">
+                    Chemical Engineering
+                </option>
+                <option value="Electronics and Communication Engineering">
+                    Electronics and Communication Engineering
+                </option>
+            </select>
+
+            <label for="ttSemester"><b>Select Semester</b></label>
+            <select id="ttSemester">
+                <option value="">Choose Semester</option>
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+                <option value="3">3rd Semester</option>
+                <option value="4">4th Semester</option>
+                <option value="5">5th Semester</option>
+                <option value="6">6th Semester</option>
+                <option value="7">7th Semester</option>
+                <option value="8">8th Semester</option>
+            </select>
+
+            <button onclick="openOfficialTimetable()">
+                🔎 Find Official Timetable
+            </button>
+
+            <div id="ttResult" style="margin-top:18px;">
+                <p>
+                    Select your year, programme and semester.
+                    Then open the official SLIET timetable page.
+                </p>
             </div>
+
+            <button onclick="goHome()">← Back to Home</button>
+        </div>
+    `;
+    }
         `;
     } else if (page === "Placement") {
         content.innerHTML = `
