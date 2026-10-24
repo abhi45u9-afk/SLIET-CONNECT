@@ -168,6 +168,12 @@ footer {
             <p>Class schedule</p>
         </div>
 
+        <div class="card" onclick="openPage('Attendance')">
+            <div class="icon">✅</div>
+            <h4>Attendance</h4>
+            <p>Track your classes and 75% target</p>
+        </div>
+
         <div class="card" onclick="openPage('Placement')">
             <div class="icon">💼</div>
             <h4>Placement</h4>
@@ -313,6 +319,9 @@ function openPage(page) {
                 <button class="secondary" onclick="goHome()">Back to Home</button>
             </div>
         `;
+    } else if (page === "Attendance") {
+        showAttendance();
+        return;
     } else if (page === "Placement") {
         content.innerHTML = `
             <div class="notice">
@@ -340,6 +349,179 @@ function openPage(page) {
             </div>
         `;
     }
+}
+
+
+function getAttendanceSubjects() {
+    return JSON.parse(localStorage.getItem("slietAttendanceSubjects") || "[]");
+}
+
+function getAttendanceRecords() {
+    return JSON.parse(localStorage.getItem("slietAttendanceRecords") || "[]");
+}
+
+function showAttendance() {
+    const content = document.getElementById("content");
+    const subjects = getAttendanceSubjects();
+    const records = getAttendanceRecords();
+
+    let html = `
+        <div class="notice">
+            <h2>✅ Attendance Tracker</h2>
+            <p>Apni classes ki attendance khud record karein.</p>
+            <p><b>Note:</b> Yeh personal tracker hai, official college attendance nahi.</p>
+            <h3>Add Subject</h3>
+            <input id="attSubjectName" maxlength="80" placeholder="Subject name">
+            <button onclick="addAttendanceSubject()">Add Subject</button>
+        </div>
+    `;
+
+    if (subjects.length) {
+        html += `
+            <div class="notice">
+                <h3>Mark Attendance</h3>
+                <label for="attSubject">Subject</label>
+                <select id="attSubject">
+                    ${subjects.map(x => `<option value="${escapeHTML(x.id)}">${escapeHTML(x.name)}</option>`).join("")}
+                </select>
+                <label for="attDate">Class date</label>
+                <input id="attDate" type="date" value="${new Date().toLocaleDateString('en-CA')}">
+                <button onclick="markAttendance('Present')">✅ Present</button>
+                <button onclick="markAttendance('Absent')">❌ Absent</button>
+                <button class="secondary" onclick="deleteAttendanceSubject()">Delete Selected Subject</button>
+            </div>
+        `;
+    } else {
+        html += `<div class="notice">Pehle apna subject add karein.</div>`;
+    }
+
+    const total = records.length;
+    const present = records.filter(r => r.status === "Present").length;
+    const percent = total ? (present / total * 100) : 0;
+    const needed = percent >= 75 ? 0 : Math.ceil((0.75 * total - present) / 0.25);
+
+    html += `
+        <div class="notice">
+            <h3>📊 Overall Attendance</h3>
+            <p>Classes recorded: <b>${total}</b></p>
+            <p>Present: <b>${present}</b> | Absent: <b>${total - present}</b></p>
+            <p>Attendance: <b>${percent.toFixed(1)}%</b></p>
+            <p>${total === 0 ? "Attendance mark karne ke baad percentage dikhegi." :
+                percent >= 75 ? "✅ You are at or above 75%." :
+                "⚠️ 75% tak pahunchne ke liye agle " + needed + " classes lagatar attend karni hongi."}</p>
+        </div>
+    `;
+
+    html += `<h3>Subject-wise Attendance</h3>`;
+    if (!subjects.length) {
+        html += `<div class="notice">Abhi koi subject add nahi hai.</div>`;
+    }
+
+    subjects.forEach(subject => {
+        const list = records.filter(r => r.subjectId === subject.id);
+        const attended = list.filter(r => r.status === "Present").length;
+        const pct = list.length ? attended / list.length * 100 : 0;
+        const required = pct >= 75 ? 0 : Math.ceil((0.75 * list.length - attended) / 0.25);
+
+        html += `
+            <div class="notice">
+                <h4>${escapeHTML(subject.name)}</h4>
+                <p>Classes: ${list.length} | Present: ${attended} | Absent: ${list.length - attended}</p>
+                <p>Attendance: <b>${pct.toFixed(1)}%</b></p>
+                <p>${list.length === 0 ? "Abhi attendance record nahi hai." :
+                    pct >= 75 ? "✅ 75% target complete." :
+                    "75% target ke liye " + required + " consecutive classes attend karein."}</p>
+            </div>
+        `;
+    });
+
+    html += `<h3>📅 Attendance History</h3>`;
+    if (!records.length) {
+        html += `<div class="notice">History abhi empty hai.</div>`;
+    } else {
+        records.slice().sort((a, b) => b.date.localeCompare(a.date)).forEach(record => {
+            const subject = subjects.find(x => x.id === record.subjectId);
+            html += `
+                <div class="notice">
+                    <p><b>${escapeHTML(subject ? subject.name : "Deleted subject")}</b></p>
+                    <p>${escapeHTML(record.date)} — ${escapeHTML(record.status)}</p>
+                    <button class="secondary" onclick="removeAttendanceRecord('${escapeHTML(record.id)}')">Delete Record</button>
+                </div>
+            `;
+        });
+    }
+
+    html += `<button class="secondary" onclick="goHome()">Back to Home</button>`;
+    content.innerHTML = html;
+}
+
+function addAttendanceSubject() {
+    const input = document.getElementById("attSubjectName");
+    const name = input.value.trim();
+
+    if (!name) {
+        alert("Subject ka naam likhein.");
+        return;
+    }
+
+    const subjects = getAttendanceSubjects();
+    if (subjects.some(x => x.name.toLowerCase() === name.toLowerCase())) {
+        alert("Yeh subject pehle se added hai.");
+        return;
+    }
+
+    subjects.push({ id: "sub-" + Date.now(), name });
+    localStorage.setItem("slietAttendanceSubjects", JSON.stringify(subjects));
+    showAttendance();
+}
+
+function markAttendance(status) {
+    const subjectId = document.getElementById("attSubject").value;
+    const date = document.getElementById("attDate").value;
+
+    if (!subjectId || !date) {
+        alert("Subject aur date select karein.");
+        return;
+    }
+
+    const records = getAttendanceRecords();
+    const existing = records.find(r => r.subjectId === subjectId && r.date === date);
+
+    if (existing) {
+        existing.status = status;
+    } else {
+        records.push({
+            id: "rec-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7),
+            subjectId,
+            date,
+            status
+        });
+    }
+
+    localStorage.setItem("slietAttendanceRecords", JSON.stringify(records));
+    showAttendance();
+}
+
+function deleteAttendanceSubject() {
+    const select = document.getElementById("attSubject");
+    if (!select || !select.value) return;
+
+    if (!confirm("Subject aur uski saari attendance history delete karni hai?")) return;
+
+    const id = select.value;
+    localStorage.setItem("slietAttendanceSubjects",
+        JSON.stringify(getAttendanceSubjects().filter(x => x.id !== id)));
+    localStorage.setItem("slietAttendanceRecords",
+        JSON.stringify(getAttendanceRecords().filter(x => x.subjectId !== id)));
+    showAttendance();
+}
+
+function removeAttendanceRecord(id) {
+    if (!confirm("Yeh attendance record delete karna hai?")) return;
+
+    localStorage.setItem("slietAttendanceRecords",
+        JSON.stringify(getAttendanceRecords().filter(r => r.id !== id)));
+    showAttendance();
 }
 
 function showSelectedTimetable() {
