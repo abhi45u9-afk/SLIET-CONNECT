@@ -436,6 +436,42 @@ function goHome() {
     document.getElementById("content").innerHTML = "";
     window.scrollTo({top: 0, behavior: "smooth"});
 }
+    function openOfficialTimetable() {
+    const year = document.getElementById("ttYear").value;
+    const branch = document.getElementById("ttBranch").value;
+    const semester = document.getElementById("ttSemester").value;
+    const result = document.getElementById("ttResult");
+
+    if (!year || !branch || !semester) {
+        result.innerHTML = `
+            <p style="color:#b91c1c;">
+                Please select year, programme and semester.
+            </p>
+        `;
+        return;
+    }
+
+    result.innerHTML = `
+        <h3>📅 Your Selection</h3>
+        <p><b>Year:</b> ${year}${year == 1 ? "st" :
+            year == 2 ? "nd" :
+            year == 3 ? "rd" : "th"} Year</p>
+        <p><b>Programme:</b> ${branch}</p>
+        <p><b>Semester:</b> ${semester}</p>
+
+        <p>
+            The official class-wise timetable must be checked
+            for your selected programme and semester.
+        </p>
+
+        <button onclick="window.open(
+            'https://academic.sliet.ac.in/time-table/',
+            '_blank'
+        )">
+            Open Official SLIET Timetable
+        </button>
+    `;
+    }
 </script>
 
 <script type="module">
