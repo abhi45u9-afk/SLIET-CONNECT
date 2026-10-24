@@ -90,6 +90,29 @@ h3 {
     overflow-wrap: anywhere;
 }
 
+/* Attendance progress bar */
+.attendance-progress {
+    width: 100%;
+    height: 14px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 10px 0 16px;
+}
+.attendance-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #16a34a;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+.attendance-progress-fill.low {
+    background: #dc2626;
+}
+.attendance-progress-fill.medium {
+    background: #eab308;
+}
+
 input, textarea, select {
     display: block;
     width: 100%;
@@ -406,6 +429,13 @@ function showAttendance() {
             <p>Classes recorded: <b>${total}</b></p>
             <p>Present: <b>${present}</b> | Absent: <b>${total - present}</b></p>
             <p>Attendance: <b>${percent.toFixed(1)}%</b></p>
+            <div class="attendance-progress" role="progressbar"
+                 aria-label="Overall attendance"
+                 aria-valuemin="0" aria-valuemax="100"
+                 aria-valuenow="${percent.toFixed(1)}">
+                <div class="attendance-progress-fill ${percent < 60 ? "low" : percent < 75 ? "medium" : ""}"
+                     style="width: ${Math.min(100, percent)}%"></div>
+            </div>
             <p>${total === 0 ? "Attendance mark karne ke baad percentage dikhegi." :
                 percent >= 75 ? "✅ You are at or above 75%." :
                 "⚠️ 75% tak pahunchne ke liye agle " + needed + " classes lagatar attend karni hongi."}</p>
@@ -428,12 +458,39 @@ function showAttendance() {
                 <h4>${escapeHTML(subject.name)}</h4>
                 <p>Classes: ${list.length} | Present: ${attended} | Absent: ${list.length - attended}</p>
                 <p>Attendance: <b>${pct.toFixed(1)}%</b></p>
+                <div class="attendance-progress" role="progressbar"
+                     aria-label="${escapeHTML(subject.name)} attendance"
+                     aria-valuemin="0" aria-valuemax="100"
+                     aria-valuenow="${pct.toFixed(1)}">
+                    <div class="attendance-progress-fill ${pct < 60 ? "low" : pct < 75 ? "medium" : ""}"
+                         style="width: ${Math.min(100, pct)}%"></div>
+                </div>
                 <p>${list.length === 0 ? "Abhi attendance record nahi hai." :
                     pct >= 75 ? "✅ 75% target complete." :
                     "75% target ke liye " + required + " consecutive classes attend karein."}</p>
             </div>
         `;
     });
+
+    html += `
+        <div class="notice">
+            <h3>📅 Monthly Attendance Report</h3>
+            <label for="attReportMonth">Select month</label>
+            <input id="attReportMonth" type="month"
+                   value="${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, "0")}">
+            <button onclick="showMonthlyAttendanceReport()">View Monthly Report</button>
+            <div id="attMonthlyReport"></div>
+            <hr>
+            <h3>📥 Download Attendance</h3>
+            <p>Apne attendance records ko CSV file mein download karein.</p>
+            <button onclick="downloadAttendanceCSV()">Download CSV</button>
+            <button onclick="backupAttendanceJSON()">📦 Download JSON Backup</button>
+            <label for="attBackupFile">Restore JSON Backup</label>
+            <input id="attBackupFile" type="file" accept=".json,application/json"
+                   onchange="restoreAttendanceJSON(event)">
+
+        </div>
+    `;
 
     html += `<h3>📅 Attendance History</h3>`;
     if (!records.length) {
@@ -445,6 +502,7 @@ function showAttendance() {
                 <div class="notice">
                     <p><b>${escapeHTML(subject ? subject.name : "Deleted subject")}</b></p>
                     <p>${escapeHTML(record.date)} — ${escapeHTML(record.status)}</p>
+                    <button onclick="editAttendanceRecord('${escapeHTML(record.id)}')">✏️ Edit Record</button>
                     <button class="secondary" onclick="removeAttendanceRecord('${escapeHTML(record.id)}')">Delete Record</button>
                 </div>
             `;
@@ -473,6 +531,92 @@ function addAttendanceSubject() {
     subjects.push({ id: "sub-" + Date.now(), name });
     localStorage.setItem("slietAttendanceSubjects", JSON.stringify(subjects));
     showAttendance();
+}
+
+
+function showMonthlyAttendanceReport() {
+    const monthInput = document.getElementById("attReportMonth");
+    const output = document.getElementById("attMonthlyReport");
+
+    if (!monthInput || !output || !monthInput.value) {
+        alert("Month select karein.");
+        return;
+    }
+
+    const month = monthInput.value;
+    const subjects = getAttendanceSubjects();
+    const records = getAttendanceRecords().filter(r => r.date.startsWith(month));
+
+    const present = records.filter(r => r.status === "Present").length;
+    const absent = records.filter(r => r.status === "Absent").length;
+    const percent = records.length ? present / records.length * 100 : 0;
+
+    let report = `
+        <h4>${month} Report</h4>
+        <p>Total classes: <b>${records.length}</b></p>
+        <p>Present: <b>${present}</b> | Absent: <b>${absent}</b></p>
+        <p>Monthly attendance: <b>${percent.toFixed(1)}%</b></p>
+    `;
+
+    if (!records.length) {
+        report += "<p>Is month ka koi record nahi mila.</p>";
+    } else {
+        report += "<h4>Subject-wise</h4>";
+
+        subjects.forEach(subject => {
+            const list = records.filter(r => r.subjectId === subject.id);
+            if (!list.length) return;
+
+            const attended = list.filter(r => r.status === "Present").length;
+            const pct = attended / list.length * 100;
+
+            report += `
+                <p><b>${escapeHTML(subject.name)}</b>:
+                ${attended}/${list.length} classes (${pct.toFixed(1)}%)</p>
+            `;
+        });
+    }
+
+    output.innerHTML = report;
+}
+
+function downloadAttendanceCSV() {
+    const subjects = getAttendanceSubjects();
+    const records = getAttendanceRecords();
+
+    if (!records.length) {
+        alert("Download karne ke liye pehle attendance mark karein.");
+        return;
+    }
+
+    const quote = value =>
+        '"' + String(value ?? "").replace(/"/g, '""') + '"';
+
+    const rows = [
+        ["Date", "Subject", "Status"],
+        ...records.map(record => {
+            const subject = subjects.find(x => x.id === record.subjectId);
+            return [
+                record.date,
+                subject ? subject.name : "Deleted subject",
+                record.status
+            ];
+        })
+    ];
+
+    const csv = "\\uFEFF" + rows.map(row => row.map(quote).join(",")).join("\\r\\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "SLIET-Attendance-" +
+        new Date().toISOString().slice(0, 10) + ".csv";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
 }
 
 function markAttendance(status) {
@@ -522,6 +666,154 @@ function removeAttendanceRecord(id) {
     localStorage.setItem("slietAttendanceRecords",
         JSON.stringify(getAttendanceRecords().filter(r => r.id !== id)));
     showAttendance();
+}
+
+
+function editAttendanceRecord(id) {
+    const records = getAttendanceRecords();
+    const record = records.find(r => r.id === id);
+
+    if (!record) {
+        alert("Attendance record nahi mila.");
+        return;
+    }
+
+    const newDate = prompt("Class date (YYYY-MM-DD):", record.date);
+    if (newDate === null) return;
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(newDate) ||
+        Number.isNaN(Date.parse(newDate + "T00:00:00")) ||
+        new Date(newDate + "T00:00:00").toISOString().slice(0, 10) !== newDate) {
+        alert("Date YYYY-MM-DD format mein likhein.");
+        return;
+    }
+
+    const newStatus = prompt(
+        "Status likhein: Present ya Absent",
+        record.status
+    );
+
+    if (newStatus === null) return;
+
+    const normalizedStatus = newStatus.trim().toLowerCase();
+    if (normalizedStatus !== "present" && normalizedStatus !== "absent") {
+        alert("Status sirf Present ya Absent ho sakta hai.");
+        return;
+    }
+
+    const duplicate = records.some(r =>
+        r.id !== id && r.subjectId === record.subjectId && r.date === newDate
+    );
+
+    if (duplicate) {
+        alert("Is subject ki attendance is date par pehle se recorded hai.");
+        return;
+    }
+
+    record.date = newDate;
+    record.status = normalizedStatus === "present" ? "Present" : "Absent";
+
+    localStorage.setItem("slietAttendanceRecords", JSON.stringify(records));
+    showAttendance();
+}
+
+function backupAttendanceJSON() {
+    const backup = {
+        format: "SLIET-CONNECT-ATTENDANCE",
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        subjects: getAttendanceSubjects(),
+        records: getAttendanceRecords()
+    };
+
+    const blob = new Blob(
+        [JSON.stringify(backup, null, 2)],
+        { type: "application/json;charset=utf-8" }
+    );
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "SLIET-Attendance-Backup-" +
+        new Date().toISOString().slice(0, 10) + ".json";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function restoreAttendanceJSON(event) {
+    const input = event.target;
+    const file = input.files && input.files[0];
+    if (!file) return;
+
+    try {
+        const backup = JSON.parse(await file.text());
+
+        if (
+            backup.format !== "SLIET-CONNECT-ATTENDANCE" ||
+            backup.version !== 1 ||
+            !Array.isArray(backup.subjects) ||
+            !Array.isArray(backup.records)
+        ) {
+            throw new Error("Yeh valid SLIET attendance backup nahi hai.");
+        }
+
+        const subjectIds = new Set();
+
+        for (const subject of backup.subjects) {
+            if (
+                !subject ||
+                typeof subject.id !== "string" ||
+                typeof subject.name !== "string" ||
+                !subject.name.trim() ||
+                subjectIds.has(subject.id)
+            ) {
+                throw new Error("Backup mein subject data invalid hai.");
+            }
+            subjectIds.add(subject.id);
+        }
+
+        const recordIds = new Set();
+
+        for (const record of backup.records) {
+            if (
+                !record ||
+                typeof record.id !== "string" ||
+                recordIds.has(record.id) ||
+                !subjectIds.has(record.subjectId) ||
+                !/^\d{4}-\d{2}-\d{2}$/.test(record.date) ||
+                !["Present", "Absent"].includes(record.status)
+            ) {
+                throw new Error("Backup mein attendance record invalid hai.");
+            }
+            recordIds.add(record.id);
+        }
+
+        if (!confirm(
+            "Restore karne se current subjects aur attendance records replace ho jayenge. " +
+            "Pehle current data ka backup rakh lo. Kya continue karna hai?"
+        )) {
+            return;
+        }
+
+        localStorage.setItem(
+            "slietAttendanceSubjects",
+            JSON.stringify(backup.subjects)
+        );
+        localStorage.setItem(
+            "slietAttendanceRecords",
+            JSON.stringify(backup.records)
+        );
+
+        alert("Attendance backup successfully restore ho gaya.");
+        showAttendance();
+    } catch (error) {
+        alert("Backup restore nahi hua: " + error.message);
+    } finally {
+        input.value = "";
+    }
 }
 
 function showSelectedTimetable() {
