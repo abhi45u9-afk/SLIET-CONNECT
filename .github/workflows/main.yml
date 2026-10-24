@@ -28,4 +28,5 @@ jobs:
       - name: Check Bubblewrap
         run: bubblewrap --version
         env:
-          CI: true
+          CI: '1'
+          JAVA_HOME: ${{ env.JAVA_HOME }}
