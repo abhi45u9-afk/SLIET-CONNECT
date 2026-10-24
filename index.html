@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLIET CONNECT</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #172554;
+}
+
+header {
+    background: #123b70;
+    color: white;
+    padding: 25px 18px;
+    border-radius: 0 0 22px 22px;
+}
+
+header h1 {
+    font-size: 25px;
+}
+
+header p {
+    margin-top: 8px;
+}
+
+.container {
+    padding: 18px;
+}
+
+.welcome {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 22px;
+}
+
+.welcome p {
+    margin-top: 8px;
+    color: #64748b;
+}
+
+h3 {
+    margin-bottom: 15px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.card {
+    background: white;
+    padding: 20px 8px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 7px;
+}
+
+#content {
+    margin-top: 22px;
+}
+
+.notice {
+    background: white;
+    padding: 16px;
+    margin-top: 12px;
+    border-radius: 12px;
+    overflow-wrap: anywhere;
+}
+
+input, textarea, select {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+button {
+    background: #123b70;
+    color: white;
+    padding: 12px 18px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.secondary {
+    background: #64748b;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 10px;
+    color: #64748b;
+    font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎓 SLIET CONNECT</h1>
+    <p>Your Campus, Connected.</p>
+</header>
+
+<main class="container">
+
+    <section class="welcome">
+        <h2>Welcome, Student! 👋</h2>
+        <p>Your college information, all in one place.</p>
+    </section>
+
+    <h3>Explore Services</h3>
+
+    <section class="grid">
+
+        <div class="card" onclick="openPage('Notices')">
+            <div class="icon">📢</div>
+            <h4>Notices</h4>
+            <p>View and add notices</p>
+        </div>
+
+        <div class="card" onclick="openPage('Study Material')">
+            <div class="icon">📚</div>
+            <h4>Study Material</h4>
+            <p>Notes and PDFs</p>
+        </div>
+
+        <div class="card" onclick="openPage('Timetable')">
+            <div class="icon">📅</div>
+            <h4>Timetable</h4>
+            <p>Class schedule</p>
+        </div>
+
+        <div class="card" onclick="openPage('Placement')">
+            <div class="icon">💼</div>
+            <h4>Placement</h4>
+            <p>Jobs and internships</p>
+        </div>
+
+        <div class="card" onclick="openPage('Hostel & Mess')">
+            <div class="icon">🏠</div>
+            <h4>Hostel & Mess</h4>
+            <p>Campus information</p>
+        </div>
+
+        <div class="card" onclick="openPage('Complaints')">
+            <div class="icon">📝</div>
+            <h4>Complaints</h4>
+            <p>Report a problem</p>
+        </div>
+
+    </section>
+
+    <section id="content"></section>
+
+</main>
+
+<footer>
+    SLIET CONNECT © 2026<br>
+    Independent student project
+</footer>
+
+<script>
+function openPage(page) {
+    const content = document.getElementById("content");
+
+    if (page === "Notices") {
+        showNotices();
+        return;
+    }
+
+    if (page === "Study Material") {
+        content.innerHTML = `
+            <h2>📚 Study Material</h2>
+            <p>Select a subject below. The buttons currently open your main Google Drive folder.</p>
+            <div class="notice">
+                <h4>📐 Engineering Mathematics</h4>
+                <p>Open the main Study Materials folder to find this subject.</p>
+                <a href="https://drive.google.com/drive/folders/1aOrkEgckNVVbKl1SEhxZg5DFlt7uqW2C" target="_blank" rel="noopener noreferrer">
+                    <button>Open Engineering Mathematics</button>
+                </a>
+            </div>
+            <div class="notice">
+                <h4>⚙️ Engineering Mechanics</h4>
+                <p>Open the main Study Materials folder to find this subject.</p>
+                <a href="https://drive.google.com/drive/folders/1gI3pNbTFQ88VV9_6gDCd36ivd_q_9toU" target="_blank" rel="noopener noreferrer">
+                    <button>Open Engineering Mechanics</button>
+                </a>
+            </div>
+            <div class="notice">
+                <h4>🧪 Engineering Chemistry</h4>
+                <p>Open the main Study Materials folder to find this subject.</p>
+                <a href="https://drive.google.com/drive/folders/1GnvzSl6lx_F2MKA6DWFu7GDP0g7vFPLv" target="_blank" rel="noopener noreferrer">
+                    <button>Open Engineering Chemistry</button>
+                </a>
+            </div>
+            <div class="notice">
+                <h4>💻 Programming in C</h4>
+                <p>Open the main Study Materials folder to find this subject.</p>
+                <a href="https://drive.google.com/drive/folders/1XhJp7UVoHoYGcYihBVUMyCCwwUTG3nuc" target="_blank" rel="noopener noreferrer">
+                    <button>Open Programming in C</button>
+                </a>
+            </div>
+            <div class="notice">
+                <h4>🔧 Manufacturing Processes</h4>
+                <p>Open the main Study Materials folder to find this subject.</p>
+                <a href="https://drive.google.com/drive/folders/14TXkj8J5UN1AkNrO_cdup6RO7qS6Nynv" target="_blank" rel="noopener noreferrer">
+                    <button>Open Manufacturing Processes</button>
+                </a>
+            </div>
+            <button onclick="goHome()">Back to Home</button>
+        `;
+    } else if (page === "Timetable") {
+        content.innerHTML = `
+            <div class="notice">
+                <h2>📅 Timetable</h2>
+                <p>Class schedules will be added here.</p>
+                <button onclick="goHome()">Back to Home</button>
+            </div>
+        `;
+    } else if (page === "Placement") {
+        content.innerHTML = `
+            <div class="notice">
+                <h2>💼 Placement</h2>
+                <p>Verified placement and internship updates will appear here.</p>
+                <button onclick="goHome()">Back to Home</button>
+            </div>
+        `;
+    } else if (page === "Hostel & Mess") {
+        content.innerHTML = `
+            <div class="notice">
+                <h2>🏠 Hostel & Mess</h2>
+                <p>Hostel information and mess menu will appear here.</p>
+                <button onclick="goHome()">Back to Home</button>
+            </div>
+        `;
+    } else if (page === "Complaints") {
+        content.innerHTML = `
+            <div class="notice">
+                <h2>📝 Complaints</h2>
+                <p>This demo does not submit complaints to the college.</p>
+                <textarea id="complaint" placeholder="Describe your problem"></textarea>
+                <button onclick="saveComplaint()">Save Draft</button>
+                <button class="secondary" onclick="goHome()">Back to Home</button>
+            </div>
+        `;
+    }
+}
+
+function showNotices() {
+    const content = document.getElementById("content");
+    const notices = JSON.parse(localStorage.getItem("slietNotices") || "[]");
+
+    let html = `
+        <h2>📢 College Notices</h2>
+        <div class="notice">
+            <h3>Add a Notice</h3>
+            <input id="noticeTitle" placeholder="Notice title">
+            <textarea id="noticeText" placeholder="Write notice details"></textarea>
+            <button onclick="addNotice()">Add Notice</button>
+        </div>
+        <h3 style="margin-top:20px">All Notices</h3>
+    `;
+
+    if (notices.length === 0) {
+        html += `<div class="notice">No notices added yet.</div>`;
+    }
+
+    notices.slice().reverse().forEach(function(notice) {
+        html += `
+            <div class="notice">
+                <h4>${escapeHTML(notice.title)}</h4>
+                <p style="margin-top:8px">${escapeHTML(notice.text)}</p>
+                <small>${escapeHTML(notice.date)}</small>
+            </div>
+        `;
+    });
+
+    html += `<button class="secondary" onclick="goHome()">Back to Home</button>`;
+    content.innerHTML = html;
+}
+
+function addNotice() {
+    const title = document.getElementById("noticeTitle").value.trim();
+    const text = document.getElementById("noticeText").value.trim();
+
+    if (!title || !text) {
+        alert("Please enter both the title and notice details.");
+        return;
+    }
+
+    const notices = JSON.parse(localStorage.getItem("slietNotices") || "[]");
+
+    notices.push({
+        title: title,
+        text: text,
+        date: new Date().toLocaleString()
+    });
+
+    localStorage.setItem("slietNotices", JSON.stringify(notices));
+    showNotices();
+}
+
+function saveComplaint() {
+    const complaint = document.getElementById("complaint").value.trim();
+
+    if (!complaint) {
+        alert("Please describe your problem first.");
+        return;
+    }
+
+    alert("This is a demo. Your complaint has not been sent to the college.");
+}
+
+function escapeHTML(value) {
+    return value.replace(/[&<>"']/g, function(character) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[character];
+    });
+}
+
+function goHome() {
+    document.getElementById("content").innerHTML = "";
+    window.scrollTo({top: 0, behavior: "smooth"});
+}
+</script>
+
+<script type="module">
+import {
+  db,
+  auth,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "./firebase.js";
+
+const ADMIN_UID = "RGVNB4ZTPyP76BqvGeNvxSboSNL2";
+
+let currentUser = null;
+let authReady = false;
+
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+  authReady = true;
+  const panel = document.getElementById("adminPanel");
+  const login = document.getElementById("loginPanel");
+  if (panel) panel.style.display = user && user.uid === ADMIN_UID ? "block" : "none";
+  if (login) login.style.display = user && user.uid === ADMIN_UID ? "none" : "block";
+});
+
+window.showNotices = async function () {
+  const content = document.getElementById("content");
+
+  content.innerHTML = `
+    <h2>📢 College Notices</h2>
+    <div id="loginPanel" class="notice">
+      <h3>🔐 Admin Login</h3>
+      <input id="adminEmail" type="email" placeholder="Admin email">
+      <input id="adminPassword" type="password" placeholder="Admin password">
+      <button id="loginButton">Login</button>
+      <button id="logoutButton" class="secondary">Logout</button>
+      <p id="loginMessage"></p>
+    </div>
+
+    <div id="adminPanel" class="notice" style="display:none">
+      <h3>Add a Notice</h3>
+      <input id="noticeTitle" placeholder="Notice title">
+      <textarea id="noticeText" placeholder="Write notice details"></textarea>
+      <button id="addNoticeButton">Add Notice</button>
+    </div>
+
+    <h3 style="margin-top:20px">All Notices</h3>
+    <div id="noticeList">Loading notices...</div>
+    <button class="secondary" onclick="goHome()">Back to Home</button>
+  `;
+
+  document.getElementById("loginButton").onclick = async () => {
+    const email = document.getElementById("adminEmail").value.trim();
+    const password = document.getElementById("adminPassword").value;
+    const message = document.getElementById("loginMessage");
+
+    if (!email || !password) {
+      message.textContent = "Email aur password bharein.";
+      return;
+    }
+
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      if (result.user.uid !== ADMIN_UID) {
+        await signOut(auth);
+        message.textContent = "Ye account admin nahi hai.";
+        return;
+      }
+      currentUser = result.user;
+      document.getElementById("loginPanel").style.display = "none";
+      document.getElementById("adminPanel").style.display = "block";
+      message.textContent = "Admin login successful!";
+    } catch (error) {
+      console.error(error);
+      message.textContent = error.code + ": " + error.message;
+    }
+  };
+
+  document.getElementById("logoutButton").onclick = async () => {
+    await signOut(auth);
+    currentUser = null;
+    document.getElementById("adminPanel").style.display = "none";
+    document.getElementById("loginPanel").style.display = "block";
+    document.getElementById("loginMessage").textContent = "Logout successful.";
+  };
+
+  document.getElementById("addNoticeButton").onclick = window.addNotice;
+
+  try {
+    const q = query(collection(db, "notices"), orderBy("createdAt", "desc"));
+    const snapshot = await getDocs(q);
+    const list = document.getElementById("noticeList");
+
+    if (snapshot.empty) {
+      list.textContent = "No notices added yet.";
+      return;
+    }
+
+    list.innerHTML = "";
+    snapshot.forEach((doc) => {
+      const notice = doc.data();
+      const card = document.createElement("div");
+      card.className = "notice";
+
+      const title = document.createElement("h4");
+      title.textContent = notice.title || "";
+      const body = document.createElement("p");
+      body.textContent = notice.text || "";
+      const date = document.createElement("small");
+      date.textContent = notice.date || "";
+
+      card.append(title, body, date);
+      list.appendChild(card);
+    });
+  } catch (error) {
+    console.error(error);
+    document.getElementById("noticeList").textContent =
+      "Notices load nahi hue. Firebase Rules check karein.";
+  }
+};
+
+window.addNotice = async function () {
+  if (!currentUser || currentUser.uid !== ADMIN_UID) {
+    alert("Sirf admin notice add kar sakta hai.");
+    return;
+  }
+
+  const title = document.getElementById("noticeTitle").value.trim();
+  const text = document.getElementById("noticeText").value.trim();
+
+  if (!title || !text) {
+    alert("Notice title aur details dono bharein.");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "notices"), {
+      title,
+      text,
+      date: new Date().toLocaleString(),
+      createdAt: new Date()
+    });
+    alert("Notice online add ho gaya!");
+    window.showNotices();
+  } catch (error) {
+    console.error(error);
+    alert("Notice add nahi hua. Firebase Rules check karein.");
+  }
+};
+</script>
+</body>
+</html>
