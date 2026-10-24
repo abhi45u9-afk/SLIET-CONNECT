@@ -265,9 +265,52 @@ function openPage(page) {
     } else if (page === "Timetable") {
         content.innerHTML = `
             <div class="notice">
-                <h2>📅 Timetable</h2>
-                <p>Class schedules will be added here.</p>
-                <button onclick="goHome()">Back to Home</button>
+                <h2>📅 SLIET Timetable</h2>
+                <p>Apna year, branch aur semester select karein.</p>
+
+                <label for="ttYear">Year</label>
+                <select id="ttYear">
+                    <option value="">Select Year</option>
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+
+                <label for="ttBranch">Branch / Programme</label>
+                <select id="ttBranch">
+                    <option value="">Select Branch</option>
+                    <option>Integrated B.Tech Mechanical Engineering</option>
+                    <option>Computer Science & Engineering</option>
+                    <option>Electronics & Communication Engineering</option>
+                    <option>Electrical Engineering</option>
+                    <option>Chemical Engineering</option>
+                    <option>Food Engineering & Technology</option>
+                    <option>Other Programme</option>
+                </select>
+
+                <label for="ttSemester">Semester</label>
+                <select id="ttSemester">
+                    <option value="">Select Semester</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+
+                <button onclick="showSelectedTimetable()">Show Timetable</button>
+                <div id="ttResult"></div>
+
+                <hr>
+                <p><b>Official SLIET timetable:</b> Agar selected class ki PDF yahan available nahi hai, official page check karein.</p>
+                <button onclick="window.open('https://academic.sliet.ac.in/time-table/', '_blank')">
+                    Open Official Timetable
+                </button>
+                <button class="secondary" onclick="goHome()">Back to Home</button>
             </div>
         `;
     } else if (page === "Placement") {
@@ -297,6 +340,29 @@ function openPage(page) {
             </div>
         `;
     }
+}
+
+function showSelectedTimetable() {
+    const year = document.getElementById("ttYear").value;
+    const branch = document.getElementById("ttBranch").value;
+    const semester = document.getElementById("ttSemester").value;
+    const result = document.getElementById("ttResult");
+
+    if (!year || !branch || !semester) {
+        result.innerHTML = "<p>Please select year, branch and semester.</p>";
+        return;
+    }
+
+    result.innerHTML = `
+        <div class="notice">
+            <h3>Selected Class</h3>
+            <p><b>Year:</b> ${year}</p>
+            <p><b>Branch:</b> ${branch}</p>
+            <p><b>Semester:</b> ${semester}</p>
+            <p>Class-wise PDF abhi verify nahi hui hai. Official timetable page open karke apni class ka PDF dekhein.</p>
+            <button onclick="window.open('https://academic.sliet.ac.in/time-table/', '_blank')">Find / Download PDF</button>
+        </div>
+    `;
 }
 
 function showNotices() {
