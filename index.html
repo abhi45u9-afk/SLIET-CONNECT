@@ -155,6 +155,13 @@ footer {
             <p>Notes and PDFs</p>
         </div>
 
+
+        <div class="card" onclick="openPage('Syllabus')">
+            <div class="icon">📖</div>
+            <h4>1st Semester Syllabus</h4>
+            <p>Subjects and units</p>
+        </div>
+
         <div class="card" onclick="openPage('Timetable')">
             <div class="icon">📅</div>
             <h4>Timetable</h4>
@@ -239,6 +246,21 @@ function openPage(page) {
                 </a>
             </div>
             <button onclick="goHome()">Back to Home</button>
+        `;
+    } else if (page === "Syllabus") {
+        content.innerHTML = `
+            <div class="notice">
+                <h2>📖 1st Semester Syllabus</h2>
+                <p>Integrated Mechanical Engineering</p>
+                <p>Select a subject to study its notes:</p>
+                <p>📐 Engineering Mathematics</p>
+                <p>⚙️ Engineering Mechanics</p>
+                <p>🧪 Engineering Chemistry</p>
+                <p>💻 Programming in C</p>
+                <p>🏭 Manufacturing Processes</p>
+                <p>Subject-wise official syllabus will be added after verification.</p>
+                <button onclick="goHome()">Back to Home</button>
+            </div>
         `;
     } else if (page === "Timetable") {
         content.innerHTML = `
