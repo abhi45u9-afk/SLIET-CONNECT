@@ -121,6 +121,8 @@ footer {
     font-size: 12px;
 }
 </style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#123b70">
 </head>
 
 <body>
@@ -511,5 +513,16 @@ window.addNotice = async function () {
   }
 };
 </script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then(() => console.log("SLIET CONNECT service worker registered"))
+      .catch((error) => console.error("Service worker registration failed:", error));
+  });
+}
+</script>
+
 </body>
 </html>
