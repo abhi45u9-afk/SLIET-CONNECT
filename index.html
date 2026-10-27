@@ -576,6 +576,80 @@ footer {
     border: 1px solid #9bb8e8 !important;
 }
 
+
+/* SLIET CONNECT theme toggle */
+header {
+    position: relative;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 10px 16px;
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 25px;
+    background: rgba(255,255,255,0.14);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+}
+
+body.dark-mode {
+    background: #0f172a !important;
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode .welcome,
+body.dark-mode .card,
+body.dark-mode .notice,
+body.dark-mode .panel,
+body.dark-mode .content-card {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #475569 !important;
+}
+
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode main,
+body.dark-mode main p,
+body.dark-mode .welcome p,
+body.dark-mode .card p {
+    color: #e2e8f0;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #64748b !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #cbd5e1;
+}
+
+body.dark-mode a {
+    color: #93c5fd;
+}
+
+body.dark-mode hr {
+    border-color: #475569;
+}
+
 </style>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#123b70">
@@ -586,6 +660,15 @@ footer {
 <header>
     <h1>🎓 SLIET CONNECT</h1>
     <p>Your Campus, Connected.</p>
+
+    <button
+        type="button"
+        id="slietThemeToggle"
+        class="theme-toggle"
+        aria-label="Switch to dark mode"
+        aria-pressed="false">
+        🌙 Dark Mode
+    </button>
 </header>
 
 <main class="container">
@@ -2582,6 +2665,55 @@ if ("serviceWorker" in navigator) {
       .catch((error) => console.error("Service worker registration failed:", error));
   });
 }
+</script>
+
+
+<script>
+(function () {
+    const button = document.getElementById("slietThemeToggle");
+    if (!button) return;
+
+    let savedTheme = "light";
+
+    try {
+        savedTheme = localStorage.getItem("slietTheme") || "light";
+    } catch (error) {
+        console.warn("Theme preference storage unavailable.");
+    }
+
+    function applyTheme(theme) {
+        const isDark = theme === "dark";
+
+        document.body.classList.toggle("dark-mode", isDark);
+        button.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+        button.setAttribute(
+            "aria-label",
+            isDark ? "Switch to light mode" : "Switch to dark mode"
+        );
+        button.setAttribute("aria-pressed", String(isDark));
+
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor) {
+            themeColor.setAttribute("content", isDark ? "#0f172a" : "#123b70");
+        }
+    }
+
+    applyTheme(savedTheme === "dark" ? "dark" : "light");
+
+    button.addEventListener("click", function () {
+        const nextTheme = document.body.classList.contains("dark-mode")
+            ? "light"
+            : "dark";
+
+        applyTheme(nextTheme);
+
+        try {
+            localStorage.setItem("slietTheme", nextTheme);
+        } catch (error) {
+            console.warn("Theme preference could not be saved.");
+        }
+    });
+})();
 </script>
 
 </body>
