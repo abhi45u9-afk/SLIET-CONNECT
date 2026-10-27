@@ -6,15 +6,34 @@ import {
   addDoc,
   getDocs,
   query,
-  orderBy
+  orderBy,
+  where,
+  limit,
+  doc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 import {
   getAuth,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+  sendPasswordResetEmail,
   signOut,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCnEXaS5LuodPbxbXBMgANpkA4ipmdGQ8E",
@@ -28,18 +47,35 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+const storage = getStorage(app);
 
 console.log("SLIET CONNECT Firebase initialized!");
 
 export {
   db,
   auth,
+  storage,
   collection,
   addDoc,
   getDocs,
   query,
   orderBy,
+  where,
+  limit,
+  doc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+  sendPasswordResetEmail,
 };

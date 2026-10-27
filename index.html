@@ -327,6 +327,194 @@ h3 {
     }
 }
 
+
+/* SLIET Student Marketplace - responsive mobile UI */
+.market-page {
+    padding: 14px;
+    border-radius: 24px;
+    background: #f5f8fd;
+    color: #172b46;
+    animation: busPageEnter .35s ease-out both;
+}
+.market-hero {
+    padding: 24px 19px;
+    border-radius: 23px;
+    color: #fff;
+    background: linear-gradient(145deg, #101f42, #145b98 68%, #168bd0);
+    box-shadow: 0 12px 28px #12345a22;
+}
+.market-eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.4px;
+    opacity: .8;
+}
+.market-hero h2 {
+    margin: 13px 0 9px;
+    font-size: clamp(25px, 7vw, 32px);
+    line-height: 1.15;
+}
+.market-hero p {
+    margin: 0;
+    color: #e2edff;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.market-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin-top: 20px;
+}
+.market-hero-actions button {
+    min-width: 0;
+    min-height: 46px;
+    margin: 0;
+    padding: 10px 7px;
+    border-radius: 14px;
+    font-size: 12px;
+}
+.market-hero-actions button.secondary {
+    border: 1px solid #ffffff55;
+    background: #ffffff13;
+    color: white;
+}
+.market-label {
+    display: block;
+    margin: 22px 2px 8px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.market-search {
+    width: 100%;
+    min-height: 50px;
+    padding: 13px 15px;
+    border: 1px solid #dce5f0;
+    border-radius: 15px;
+    background: #fff;
+    font-size: 14px;
+    outline: none;
+    box-shadow: 0 4px 14px #172b4608;
+}
+.market-search:focus {
+    border-color: #3988d5;
+    box-shadow: 0 0 0 4px #3988d51c;
+}
+.market-section-title {
+    margin: 23px 0 13px;
+    font-size: 17px;
+}
+.market-categories {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+}
+.market-category {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 0;
+    min-height: 112px;
+    margin: 0;
+    padding: 15px;
+    border: 1px solid #e3eaf4;
+    border-radius: 19px;
+    background: #fff;
+    color: #193453;
+    text-align: left;
+    box-shadow: 0 5px 16px #172b4608;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.market-category span {
+    display: grid;
+    place-items: center;
+    width: 43px;
+    height: 43px;
+    border-radius: 14px;
+    background: #eaf3ff;
+    font-size: 23px;
+}
+.market-category strong {
+    font-size: 12px;
+    line-height: 1.4;
+}
+.market-category:active {
+    transform: scale(.97);
+}
+.market-category:hover {
+    transform: translateY(-2px);
+    border-color: #bdd8fb;
+    box-shadow: 0 9px 20px #145b9815;
+}
+.market-listing-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 23px;
+}
+.market-listing-heading .market-section-title {
+    margin: 0 0 12px;
+}
+.market-beta {
+    margin-bottom: 12px;
+    padding: 5px 8px;
+    border-radius: 999px;
+    background: #e2edff;
+    color: #205b99;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+.market-empty {
+    padding: 24px 17px;
+    border: 1px dashed #cbd8e8;
+    border-radius: 20px;
+    background: #fff;
+    text-align: center;
+}
+.market-empty-icon {
+    font-size: 35px;
+}
+.market-empty h3 {
+    margin: 10px 0 8px;
+    font-size: 17px;
+}
+.market-empty p {
+    margin: 0;
+    color: #687b93;
+    font-size: 13px;
+    line-height: 1.6;
+}
+.market-note {
+    margin: 17px 0;
+    padding: 12px;
+    border-radius: 14px;
+    background: #eaf3ff;
+    color: #405875;
+    font-size: 11px;
+    line-height: 1.6;
+}
+.market-back {
+    width: 100%;
+    min-height: 47px;
+    border-radius: 14px;
+}
+@media (max-width: 350px) {
+    .market-page { padding: 10px; }
+    .market-hero { padding: 21px 15px; }
+    .market-categories { gap: 8px; }
+    .market-category { padding: 12px; }
+    .market-hero-actions { gap: 6px; }
+    .market-hero-actions button { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .market-page *, .market-page *::before, .market-page *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
 /* Attendance progress bar */
 .attendance-progress {
     width: 100%;
@@ -380,6 +568,14 @@ footer {
     color: #64748b;
     font-size: 12px;
 }
+
+/* Fix visibility of Student Marketplace account buttons */
+#marketAuth .market-hero-actions button.secondary {
+    background: #e8efff !important;
+    color: #173b70 !important;
+    border: 1px solid #9bb8e8 !important;
+}
+
 </style>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#123b70">
@@ -420,6 +616,18 @@ footer {
             <div class="icon">📖</div>
             <h4>1st Semester Syllabus</h4>
             <p>Subjects and units</p>
+        </div>
+
+        <div class="card" onclick="openPage('Clubs & Opportunities')">
+            <div class="icon">🎓</div>
+            <h4>Clubs & Opportunities</h4>
+            <p>Explore clubs, join activities, events and opportunities</p>
+        </div>
+
+        <div class="card" onclick="openPage('Student Marketplace')">
+            <div class="icon">🛍️</div>
+            <h4>Student Marketplace</h4>
+            <p>Buy & sell books, electronics and hostel essentials</p>
         </div>
 
         <div class="card" onclick="openPage('Bus Timing')">
@@ -472,6 +680,234 @@ footer {
 <script>
 function openPage(page) {
     const content = document.getElementById("content");
+
+    if (page === "Clubs & Opportunities") {
+        content.innerHTML = `
+            <div class="notice">
+                <h2>🎓 Clubs & Opportunities</h2>
+                <section class="notice" id="clubsStudentAuth">
+                    <h3>🎓 Student Account</h3>
+                    <p>Student account banane ya login karne ke liye neeche button dabayein.</p>
+                    <button type="button" onclick="sessionStorage.setItem('returnToClubsAfterLogin','1'); openPage('Student Marketplace')">Student Login / Register</button>
+                    <button type="button" id="clubsLogoutButton" onclick="clubsLogout()" style="display:none;">Logout</button>
+                </section>
+                <p>Explore college clubs, apply to join, and discover events and opportunities.</p>
+                <div id="clubsMessage" role="status" aria-live="polite"></div>
+            </div>
+
+            <section class="notice">
+                <h3>🏫 College Clubs</h3>
+                <div id="clubsList">
+                    <p>Clubs load ho rahe hain...</p>
+                </div>
+            </section>
+
+            <section class="notice">
+                <h3>📋 My Club Applications</h3>
+                <div id="myClubApplications">
+                    <p>Login karke apni applications dekh sakte hain.</p>
+                </div>
+            </section>
+
+            <section class="notice">
+                <h3>📅 Club Events</h3>
+                <div id="clubEventsList">
+                    <p>Events load ho rahe hain...</p>
+                </div>
+            </section>
+
+            <section class="notice">
+                <h3>🚀 Opportunities</h3>
+                <div id="clubOpportunitiesList">
+                    <p>Opportunities load ho rahi hain...</p>
+                </div>
+            </section>
+
+            <section class="notice" id="clubsAdminPanel" style="display:none">
+                <h3>🛡️ Admin: Manage Clubs</h3>
+
+                <h4>Add / Edit Club</h4>
+                <input id="clubEditId" type="hidden">
+                <input id="clubNameInput" placeholder="Club name">
+                <input id="clubCategoryInput" placeholder="Category">
+                <input id="clubContactInput" placeholder="Contact / Email">
+                <textarea id="clubDescriptionInput" placeholder="Club description"></textarea>
+                <button type="button" onclick="saveClub()">Save Club</button>
+                <button type="button" class="secondary" onclick="resetClubForm()">Clear Form</button>
+
+                <h4>📋 Student Applications</h4>
+                <div id="adminClubApplications">Applications load hongi...</div>
+
+                <h4>📅 Add Club Event</h4>
+                <input id="clubEventTitle" placeholder="Event title">
+                <input id="clubEventDate" type="date">
+                <input id="clubEventName" placeholder="Club name">
+                <textarea id="clubEventDescription" placeholder="Event description"></textarea>
+                <button type="button" onclick="saveClubEvent()">Add Event</button>
+
+                <h4>🚀 Add Opportunity</h4>
+                <input id="clubOpportunityTitle" placeholder="Opportunity title">
+                <input id="clubOpportunityDeadline" type="date">
+                <input id="clubOpportunityLink" type="url" placeholder="Application link (optional)">
+                <textarea id="clubOpportunityDescription" placeholder="Opportunity description"></textarea>
+                <button type="button" onclick="saveClubOpportunity()">Add Opportunity</button>
+
+                <div id="clubsAdminMessage" role="status" aria-live="polite"></div>
+            </section>
+
+            <button class="secondary" onclick="goHome()">← Back to Home</button>
+        `;
+
+        if (window.loadClubsPage) {
+            window.loadClubsPage();
+        }
+        return;
+    }
+
+    if (page === "Student Marketplace") {
+        content.innerHTML = `
+            <div class="market-page">
+                <section class="market-hero">
+                    <span class="market-eyebrow">SLIET CONNECT • STUDENT COMMUNITY</span>
+                    <h2>Student Marketplace 🛍️</h2>
+                    <p>Buy, sell and reuse items with fellow students.</p>
+                    <div class="market-hero-actions">
+                        <button onclick="document.getElementById('marketSearch').focus()">
+                            🔎 Explore Items
+                        </button>
+                        <button class="secondary" onclick="showMarketProfile()">👤 My Profile</button>
+                        <button class="secondary" onclick="showMarketSellForm()">
+                            ＋ Sell an Item
+                        </button>
+                    </div>
+                </section>
+
+                <section class="market-auth notice" id="marketAuth">
+    <h3>🎓 Student Account</h3>
+    <p id="marketFormIntro">Naya account banayein ya apne account mein login karein.</p>
+
+    <div id="marketSignupForm">
+        <h4>Create Account</h4>
+        <input id="marketName" type="text" placeholder="Your name">
+        <input id="marketEmail" type="email" placeholder="Email address">
+        <input id="marketPassword" type="password" placeholder="Password (minimum 6 characters)">
+        <button type="button" onclick="marketSignUp()">Create Account</button>
+        <p>Account pehle se hai?</p>
+        <button type="button" class="secondary" onclick="document.getElementById('marketSignupForm').style.display='none'; document.getElementById('marketLoginForm').style.display='block'; document.getElementById('marketFormIntro').textContent='Apne registered account mein login karein.';">Login</button>
+    </div>
+
+    <div id="marketLoginForm" style="display:none">
+        <h4>Login</h4>
+        <input id="marketLoginEmail" type="email" placeholder="Registered email address">
+        <input id="marketLoginPassword" type="password" placeholder="Password">
+        <button type="button" onclick="marketLogin()">Login</button>
+        <button type="button" class="secondary" onclick="marketForgotPassword()">Forgot Password?</button>
+        <p>Naya account banana hai?</p>
+        <button type="button" class="secondary" onclick="document.getElementById('marketLoginForm').style.display='none'; document.getElementById('marketSignupForm').style.display='block'; document.getElementById('marketFormIntro').textContent='Naya student account banayein.';">Create Account</button>
+    </div>
+
+    <button type="button" class="secondary" onclick="marketLogout()">Logout</button>
+    <p id="marketAuthMessage" role="status" aria-live="polite"></p>
+</section>
+
+                <section class="notice" id="marketProfilePanel" style="display:none">
+                    <h3>👤 My Student Profile</h3>
+                    <input id="marketProfileName" type="text" placeholder="Your name">
+                    <input id="marketProfileBranch" type="text" placeholder="Branch">
+                    <input id="marketProfileSemester" type="text" placeholder="Semester">
+                    <textarea id="marketProfileBio" placeholder="About yourself"></textarea>
+                    <button type="button" onclick="saveMarketProfile()">Save Profile</button>
+                    <p id="marketProfileMessage" role="status"></p>
+                </section>
+
+                <section class="notice" id="marketSellPanel" style="display:none">
+                    <h3>📦 Sell an Item</h3>
+                    <input id="marketProductTitle" type="text" placeholder="Product name">
+                    <select id="marketProductCategory">
+                        <option value="Books & Notes">Books & Notes</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Engineering Tools">Engineering Tools</option>
+                        <option value="Hostel Essentials">Hostel Essentials</option>
+                        <option value="Clothes & Accessories">Clothes & Accessories</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input id="marketProductPrice" type="number" min="1" placeholder="Price in ₹">
+                    <textarea id="marketProductDescription" placeholder="Product description"></textarea>
+                    <label class="market-label" for="marketProductPhoto">Product Photo</label>
+                    <input id="marketProductPhoto" type="file" accept="image/*">
+                    <button type="button" onclick="saveMarketProduct()">Publish Product</button>
+                    <button type="button" class="secondary" onclick="document.getElementById('marketSellPanel').style.display='none'">Cancel</button>
+                    <p id="marketProductMessage" role="status"></p>
+                </section>
+
+                <div id="marketListings"></div>
+
+                <label class="market-label" for="marketSearch">Find something you need</label>
+                <input id="marketSearch" class="market-search" type="search"
+                    placeholder="Search books, calculators, hostel items…"
+                    oninput="filterMarketCategories(this.value)">
+
+                <h3 class="market-section-title">Browse Categories</h3>
+                <div class="market-categories" id="marketCategories">
+                    <button class="market-category" data-category="Books & Notes" onclick="selectMarketCategory('Books & Notes')">
+                        <span>📚</span><strong>Books & Notes</strong>
+                    </button>
+                    <button class="market-category" data-category="Electronics" onclick="selectMarketCategory('Electronics')">
+                        <span>💻</span><strong>Electronics</strong>
+                    </button>
+                    <button class="market-category" data-category="Engineering Tools" onclick="selectMarketCategory('Engineering Tools')">
+                        <span>🧰</span><strong>Engineering Tools</strong>
+                    </button>
+                    <button class="market-category" data-category="Hostel Essentials" onclick="selectMarketCategory('Hostel Essentials')">
+                        <span>🛏️</span><strong>Hostel Essentials</strong>
+                    </button>
+                    <button class="market-category" data-category="Clothes & Accessories" onclick="selectMarketCategory('Clothes & Accessories')">
+                        <span>👕</span><strong>Clothes & Accessories</strong>
+                    </button>
+                    <button class="market-category" data-category="Other" onclick="selectMarketCategory('Other')">
+                        <span>🎒</span><strong>Other Items</strong>
+                    </button>
+                </div>
+
+                <div class="market-listing-heading">
+                    <h3 class="market-section-title">Recent Listings</h3>
+                    <span class="market-beta">MARKETPLACE</span>
+                </div>
+                <div class="market-empty" id="marketEmpty">
+                    <div class="market-empty-icon">🛍️</div>
+                    <h3>Something exciting is coming!</h3>
+                    <p>Product listings will appear here once the marketplace database is connected.</p>
+                </div>
+
+                <p class="market-note">🔒 Trade responsibly. Meet in a safe public place and check items before paying.</p>
+                <button class="secondary market-back" onclick="goHome()">← Back to Home</button>
+            </div>
+        `;
+
+        window.filterMarketCategories = function (value) {
+            const search = value.trim().toLowerCase();
+            document.querySelectorAll("#marketCategories .market-category").forEach((button) => {
+                button.style.display = button.dataset.category.toLowerCase().includes(search)
+                    || button.textContent.toLowerCase().includes(search)
+                    ? "" : "none";
+            });
+        };
+
+        window.selectMarketCategory = function (category) {
+            const search = document.getElementById("marketSearch");
+            search.value = category;
+            window.filterMarketCategories(category);
+            if (window.loadMarketProducts) window.loadMarketProducts();
+        };
+
+        if (window.loadMarketProducts) window.loadMarketProducts();
+
+        window.showSellComingSoon = function () {
+            alert("Sell an Item will be enabled after student login, photo upload and secure marketplace database are configured.");
+        };
+
+        return;
+    }
 
     if (page === "Notices") {
         showNotices();
@@ -1254,14 +1690,29 @@ function goHome() {
 import {
   db,
   auth,
+  storage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
   collection,
   addDoc,
   getDocs,
   query,
   orderBy,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+  sendPasswordResetEmail,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  where,
+  limit,
+  doc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp
 } from "./firebase.js";
 
 const ADMIN_UID = "RGVNB4ZTPyP76BqvGeNvxSboSNL2";
@@ -1272,10 +1723,21 @@ let authReady = false;
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
   authReady = true;
+
   const panel = document.getElementById("adminPanel");
   const login = document.getElementById("loginPanel");
   if (panel) panel.style.display = user && user.uid === ADMIN_UID ? "block" : "none";
   if (login) login.style.display = user && user.uid === ADMIN_UID ? "none" : "block";
+
+  const clubsLogin = document.querySelector("#clubsStudentAuth button:not(#clubsLogoutButton)");
+  const clubsLogout = document.getElementById("clubsLogoutButton");
+
+  if (clubsLogin) {
+    clubsLogin.style.display = user && user.uid !== ADMIN_UID ? "none" : "inline-block";
+  }
+  if (clubsLogout) {
+    clubsLogout.style.display = user && user.uid !== ADMIN_UID ? "inline-block" : "none";
+  }
 });
 
 window.showNotices = async function () {
@@ -1402,6 +1864,714 @@ window.addNotice = async function () {
     alert("Notice add nahi hua. Firebase Rules check karein.");
   }
 };
+
+
+window.marketShowLogin = function () {
+  document.getElementById("marketSignupForm").style.display = "none";
+  document.getElementById("marketLoginForm").style.display = "block";
+  document.getElementById("marketFormIntro").textContent = "Apne registered account mein login karein.";
+  document.getElementById("marketAuthMessage").textContent = "";
+};
+
+window.marketShowSignup = function () {
+  document.getElementById("marketLoginForm").style.display = "none";
+  document.getElementById("marketSignupForm").style.display = "block";
+  document.getElementById("marketFormIntro").textContent = "Naya student account banayein.";
+  document.getElementById("marketAuthMessage").textContent = "";
+};
+
+// Student Marketplace authentication
+window.marketSignUp = async function () {
+  const name = document.getElementById("marketName").value.trim();
+  const email = document.getElementById("marketEmail").value.trim();
+  const password = document.getElementById("marketPassword").value;
+  const message = document.getElementById("marketAuthMessage");
+
+  if (!name || !email || !password) {
+    message.textContent = "Name, email aur password bharein.";
+    return;
+  }
+
+  if (password.length < 6) {
+    message.textContent = "Password kam se kam 6 characters ka hona chahiye.";
+    return;
+  }
+
+  try {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(result.user, { displayName: name });
+    await sendEmailVerification(result.user);
+    message.textContent = "Account ban gaya! Email verification link apne inbox mein check karein.";
+
+    if (sessionStorage.getItem("returnToClubsAfterLogin") === "1") {
+      sessionStorage.removeItem("returnToClubsAfterLogin");
+      window.openPage("Clubs & Opportunities");
+    }
+  } catch (error) {
+    console.error("Marketplace signup error:", error);
+    message.textContent = error.code || "Account nahi ban saka. Dobara try karein.";
+  }
+};
+
+window.marketLogin = async function () {
+  const email = document.getElementById("marketLoginEmail").value.trim();
+  const password = document.getElementById("marketLoginPassword").value;
+  const message = document.getElementById("marketAuthMessage");
+
+  if (!email || !password) {
+    message.textContent = "Email aur password bharein.";
+    return;
+  }
+
+  try {
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    const user = result.user;
+    message.textContent = user.emailVerified
+      ? "Login successful! Aap Marketplace use kar sakte hain."
+      : "Login successful, lekin pehle apna email verify karein.";
+
+    if (sessionStorage.getItem("returnToClubsAfterLogin") === "1") {
+      sessionStorage.removeItem("returnToClubsAfterLogin");
+      window.openPage("Clubs & Opportunities");
+    }
+  } catch (error) {
+    console.error("Marketplace login error:", error);
+    message.textContent = error.code || "Login nahi hua. Details check karein.";
+  }
+};
+
+window.marketForgotPassword = async function () {
+  const email = document.getElementById("marketLoginEmail").value.trim();
+  const message = document.getElementById("marketAuthMessage");
+
+  if (!email) {
+    message.textContent = "Pehle Login form mein apna registered email bharein.";
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    message.textContent = "Password reset link bhej diya gaya hai. Inbox aur Spam folder check karein.";
+  } catch (error) {
+    console.error("Password reset error:", error);
+    message.textContent = error.code || "Password reset email nahi bheja ja saka.";
+  }
+};
+
+
+// Student profile and marketplace products
+window.showMarketSellForm = function () {
+  if (!currentUser) {
+    alert("Pehle Marketplace mein login karein.");
+    return;
+  }
+  document.getElementById("marketSellPanel").style.display = "block";
+  document.getElementById("marketProfilePanel").style.display = "none";
+};
+
+window.showMarketProfile = async function () {
+  if (!currentUser) {
+    alert("Pehle Marketplace mein login karein.");
+    return;
+  }
+
+  const panel = document.getElementById("marketProfilePanel");
+  panel.style.display = "block";
+  document.getElementById("marketSellPanel").style.display = "none";
+
+  try {
+    const snap = await getDocs(query(
+      collection(db, "marketplaceProfiles"),
+      where("uid", "==", currentUser.uid),
+      limit(1)
+    ));
+
+    if (!snap.empty) {
+      const profile = snap.docs[0].data();
+      document.getElementById("marketProfileName").value = profile.name || currentUser.displayName || "";
+      document.getElementById("marketProfileBranch").value = profile.branch || "";
+      document.getElementById("marketProfileSemester").value = profile.semester || "";
+      document.getElementById("marketProfileBio").value = profile.bio || "";
+    } else {
+      document.getElementById("marketProfileName").value = currentUser.displayName || "";
+    }
+  } catch (error) {
+    console.error("Profile load error:", error);
+    document.getElementById("marketProfileMessage").textContent =
+      "Profile load nahi hua. Firestore Rules check karein.";
+  }
+};
+
+window.saveMarketProfile = async function () {
+  if (!currentUser) {
+    alert("Pehle login karein.");
+    return;
+  }
+
+  const message = document.getElementById("marketProfileMessage");
+  const name = document.getElementById("marketProfileName").value.trim();
+  const branch = document.getElementById("marketProfileBranch").value.trim();
+  const semester = document.getElementById("marketProfileSemester").value.trim();
+  const bio = document.getElementById("marketProfileBio").value.trim();
+
+  if (!name) {
+    message.textContent = "Apna naam bharein.";
+    return;
+  }
+
+  message.textContent = "Profile save ho rahi hai...";
+
+  try {
+    await updateProfile(currentUser, { displayName: name });
+
+    const profileRef = doc(db, "marketplaceProfiles", currentUser.uid);
+    await setDoc(profileRef, {
+      uid: currentUser.uid,
+      name,
+      branch,
+      semester,
+      bio,
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+
+    message.textContent = "Profile successfully save ho gayi!";
+  } catch (error) {
+    console.error("Profile save error:", error);
+    message.textContent = "Error: " + (error.code || error.message);
+  }
+};
+
+window.saveMarketProduct = async function () {
+  if (!currentUser) {
+    alert("Product publish karne ke liye login karein.");
+    return;
+  }
+
+  const message = document.getElementById("marketProductMessage");
+  const title = document.getElementById("marketProductTitle").value.trim();
+  const category = document.getElementById("marketProductCategory").value;
+  const price = Number(document.getElementById("marketProductPrice").value);
+  const description = document.getElementById("marketProductDescription").value.trim();
+  const photo = document.getElementById("marketProductPhoto").files[0];
+
+  if (!title || !description || !Number.isFinite(price) || price <= 0) {
+    message.textContent = "Product name, sahi price aur description bharein.";
+    return;
+  }
+  if (!photo || !photo.type.startsWith("image/") || photo.size > 5 * 1024 * 1024) {
+    message.textContent = "Product ki image select karein (maximum 5 MB).";
+    return;
+  }
+
+  message.textContent = "Product upload ho raha hai...";
+
+  try {
+    const safeName = photo.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const photoRef = ref(storage, "marketplace/products/" + currentUser.uid + "/" + Date.now() + "-" + safeName);
+    await uploadBytes(photoRef, photo);
+    const imageURL = await getDownloadURL(photoRef);
+
+    const profileSnap = await getDocs(query(
+      collection(db, "marketplaceProfiles"),
+      where("uid", "==", currentUser.uid),
+      limit(1)
+    ));
+    const sellerName = profileSnap.empty
+      ? (currentUser.displayName || currentUser.email || "Student")
+      : (profileSnap.docs[0].data().name || currentUser.displayName || "Student");
+
+    await addDoc(collection(db, "marketplaceProducts"), {
+      sellerUid: currentUser.uid,
+      sellerName,
+      title,
+      category,
+      price,
+      description,
+      imageURL,
+      status: "available",
+      createdAt: serverTimestamp()
+    });
+
+    document.getElementById("marketProductTitle").value = "";
+    document.getElementById("marketProductPrice").value = "";
+    document.getElementById("marketProductDescription").value = "";
+    document.getElementById("marketProductPhoto").value = "";
+    message.textContent = "Product successfully publish ho gaya!";
+    document.getElementById("marketSellPanel").style.display = "none";
+    await loadMarketProducts();
+  } catch (error) {
+    console.error("Product publish error:", error);
+    message.textContent = error.code || "Product publish nahi hua. Firebase Rules check karein.";
+  }
+};
+
+window.loadMarketProducts = async function () {
+  const container = document.getElementById("marketListings");
+  if (!container) return;
+  container.textContent = "Products load ho rahe hain...";
+
+  try {
+    let snapshots;
+    try {
+      snapshots = await getDocs(query(
+        collection(db, "marketplaceProducts"),
+        orderBy("createdAt", "desc"),
+        limit(50)
+      ));
+    } catch (firstError) {
+      snapshots = await getDocs(query(collection(db, "marketplaceProducts"), limit(50)));
+    }
+
+    container.replaceChildren();
+    const products = snapshots.docs.map((item) => ({ id: item.id, ...item.data() }));
+    const search = (document.getElementById("marketSearch")?.value || "").trim().toLowerCase();
+    const visible = products.filter((product) => {
+      const text = [product.title, product.category, product.description].join(" ").toLowerCase();
+      return !search || text.includes(search);
+    });
+
+    document.getElementById("marketEmpty").style.display = visible.length ? "none" : "block";
+
+    visible.forEach((product) => {
+      const card = document.createElement("article");
+      card.className = "notice";
+      const image = document.createElement("img");
+      image.src = product.imageURL || "";
+      image.alt = product.title || "Product";
+      image.style.cssText = "width:100%;max-height:220px;object-fit:cover;border-radius:12px";
+      if (!product.imageURL) image.style.display = "none";
+
+      const title = document.createElement("h3");
+      title.textContent = product.title || "Untitled product";
+      const price = document.createElement("strong");
+      price.textContent = "₹" + (Number(product.price) || 0);
+      const description = document.createElement("p");
+      description.textContent = product.description || "";
+      const category = document.createElement("p");
+      category.textContent = "Category: " + (product.category || "Other");
+      const seller = document.createElement("p");
+      seller.textContent = "Seller: " + (product.sellerName || "Student");
+      const status = document.createElement("p");
+      status.textContent = product.status === "sold" ? "SOLD" : "Available";
+
+      card.append(image, title, price, description, category, seller, status);
+
+      if (currentUser && product.sellerUid === currentUser.uid && product.status !== "sold") {
+        const soldButton = document.createElement("button");
+        soldButton.textContent = "Mark as Sold";
+        soldButton.onclick = async () => {
+          try {
+            await updateDoc(doc(db, "marketplaceProducts", product.id), { status: "sold" });
+            await loadMarketProducts();
+          } catch (error) {
+            console.error(error);
+            alert("Status update nahi hua. Firestore Rules check karein.");
+          }
+        };
+        card.appendChild(soldButton);
+      }
+
+      if (currentUser && product.sellerUid === currentUser.uid) {
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "secondary";
+        deleteButton.textContent = "Delete Listing";
+        deleteButton.onclick = async () => {
+          if (!confirm("Kya aap apni listing delete karna chahte hain?")) return;
+          try {
+            await deleteDoc(doc(db, "marketplaceProducts", product.id));
+            await loadMarketProducts();
+          } catch (error) {
+            console.error(error);
+            alert("Listing delete nahi hui. Firestore Rules check karein.");
+          }
+        };
+        card.appendChild(deleteButton);
+      }
+
+      container.appendChild(card);
+    });
+  } catch (error) {
+    console.error("Product loading error:", error);
+    container.textContent = "Products load nahi hue. Firebase Firestore Rules check karein.";
+  }
+};
+
+window.marketLogout = async function () {
+  const message = document.getElementById("marketAuthMessage");
+
+  try {
+    await signOut(auth);
+    message.textContent = "Logout successful.";
+  } catch (error) {
+    console.error("Marketplace logout error:", error);
+    message.textContent = "Logout nahi hua. Dobara try karein.";
+  }
+};
+
+
+
+// =========================
+window.clubsLogout = async function () {
+  try {
+    await signOut(auth);
+    sessionStorage.removeItem("returnToClubsAfterLogin");
+    window.openPage("Clubs & Opportunities");
+  } catch (error) {
+    console.error("Clubs logout error:", error);
+    alert("Logout nahi hua. Dobara try karein.");
+  }
+};
+
+// CLUBS & OPPORTUNITIES
+// =========================
+
+window.loadClubsPage = async function () {
+    const message = document.getElementById("clubsMessage");
+    const clubsList = document.getElementById("clubsList");
+    const applicationsList = document.getElementById("myClubApplications");
+    const eventsList = document.getElementById("clubEventsList");
+    const opportunitiesList = document.getElementById("clubOpportunitiesList");
+    const adminPanel = document.getElementById("clubsAdminPanel");
+
+    if (!clubsList) return;
+
+    const clubsLogin = document.querySelector("#clubsStudentAuth button:not(#clubsLogoutButton)");
+    const clubsLogout = document.getElementById("clubsLogoutButton");
+    const isStudentLoggedIn = !!currentUser && currentUser.uid !== ADMIN_UID;
+
+    if (clubsLogin) {
+        clubsLogin.style.display = isStudentLoggedIn ? "none" : "inline-block";
+    }
+    if (clubsLogout) {
+        clubsLogout.style.display = isStudentLoggedIn ? "inline-block" : "none";
+    }
+
+    const isAdmin = !!currentUser && currentUser.uid === ADMIN_UID;
+    if (adminPanel) adminPanel.style.display = isAdmin ? "block" : "none";
+
+    const safe = (value) => String(value ?? "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[ch]);
+
+    try {
+        const [clubsSnap, eventsSnap, opportunitiesSnap] = await Promise.all([
+            getDocs(collection(db, "clubs")),
+            getDocs(collection(db, "clubEvents")),
+            getDocs(collection(db, "clubOpportunities"))
+        ]);
+
+        const clubs = clubsSnap.docs.map(d => ({ id: d.id, ...d.data() }))
+            .filter(c => c.active !== false);
+        const events = eventsSnap.docs.map(d => ({ id: d.id, ...d.data() }))
+            .filter(e => e.active !== false);
+        const opportunities = opportunitiesSnap.docs.map(d => ({ id: d.id, ...d.data() }))
+            .filter(o => o.active !== false);
+
+        if (!clubs.length) {
+            clubsList.innerHTML = "<p>Abhi clubs add nahi kiye gaye hain.</p>";
+        } else {
+            clubsList.innerHTML = clubs.map(c => `
+                <article class="notice">
+                    <h4>${safe(c.name || "College Club")}</h4>
+                    <p>${safe(c.description || "Club details jald update honge.")}</p>
+                    ${c.category ? `<p><b>Category:</b> ${safe(c.category)}</p>` : ""}
+                    ${c.contact ? `<p><b>Contact:</b> ${safe(c.contact)}</p>` : ""}
+                    ${isAdmin ? `<button type="button" onclick="editClub('${safe(c.id)}','${safe(c.name || "")}','${safe(c.category || "")}','${safe(c.contact || "")}','${safe(c.description || "")}')">Edit</button><button type="button" class="secondary" onclick="deleteClub('${safe(c.id)}')">Delete</button>` : ""}
+                    ${currentUser && !isAdmin
+                        ? `<button type="button" onclick="applyToClub('${safe(c.id)}','${safe(c.name || "College Club")}')">Apply to Join</button>`
+                        : !currentUser
+                            ? "<p>Apply karne ke liye student account se login karein.</p>"
+                            : ""}
+                </article>
+            `).join("");
+        }
+
+        if (currentUser) {
+            const myAppsSnap = await getDocs(query(
+                collection(db, "clubApplications"),
+                where("studentUid", "==", currentUser.uid)
+            ));
+            const myApps = myAppsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+            if (!myApps.length) {
+                applicationsList.innerHTML = "<p>Aapne abhi kisi club mein apply nahi kiya.</p>";
+            } else {
+                applicationsList.innerHTML = myApps.map(a => `
+                    <article class="notice">
+                        <h4>${safe(a.clubName || "College Club")}</h4>
+                        <p>Status: <b>${safe(a.status || "Pending")}</b></p>
+                        ${a.message ? `<p>${safe(a.message)}</p>` : ""}
+                    </article>
+                `).join("");
+            }
+        } else {
+            applicationsList.innerHTML = "<p>Applications dekhne ke liye login karein.</p>";
+        }
+
+        eventsList.innerHTML = events.length ? events.map(e => `
+            <article class="notice">
+                <h4>${safe(e.title || "Club Event")}</h4>
+                <p>${safe(e.description || "")}</p>
+                ${e.date ? `<p><b>Date:</b> ${safe(e.date)}</p>` : ""}
+                ${e.clubName ? `<p><b>Club:</b> ${safe(e.clubName)}</p>` : ""}
+            </article>
+        `).join("") : "<p>Abhi koi event listed nahi hai.</p>";
+
+        opportunitiesList.innerHTML = opportunities.length ? opportunities.map(o => `
+            <article class="notice">
+                <h4>${safe(o.title || "Opportunity")}</h4>
+                <p>${safe(o.description || "")}</p>
+                ${o.deadline ? `<p><b>Deadline:</b> ${safe(o.deadline)}</p>` : ""}
+                ${o.link ? `<p><a href="${safe(o.link)}" target="_blank" rel="noopener noreferrer">View Opportunity</a></p>` : ""}
+            </article>
+        `).join("") : "<p>Abhi koi opportunity listed nahi hai.</p>";
+
+        
+if (isAdmin) {
+    const adminApps = document.getElementById("adminClubApplications");
+    if (adminApps) {
+        try {
+            const appsSnap = await getDocs(collection(db, "clubApplications"));
+            const apps = appsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+            const esc = v => String(v ?? "").replace(/[&<>"']/g, ch => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            })[ch]);
+
+            adminApps.innerHTML = apps.length ? apps.map(a => `
+                <article class="notice">
+                    <p><b>${esc(a.clubName || "Club")}</b></p>
+                    <p>Student: ${esc(a.studentEmail || a.studentUid || "")}</p>
+                    <p>Status: <b>${esc(a.status || "Pending")}</b></p>
+                    ${a.status !== "Approved" ? `<button type="button" onclick="updateClubApplication('${esc(a.id)}','Approved')">Approve</button>` : ""}
+                    ${a.status !== "Rejected" ? `<button type="button" class="secondary" onclick="updateClubApplication('${esc(a.id)}','Rejected')">Reject</button>` : ""}
+                </article>
+            `).join("") : "<p>Abhi koi application nahi hai.</p>";
+        } catch (e) {
+            console.error("Admin applications load error:", e);
+            adminApps.textContent = "Applications load nahi hui. Firestore Rules check karein.";
+        }
+    }
+
+    const clubsAdmin = document.getElementById("clubsList");
+    if (clubsAdmin) {
+        // Admin buttons are added to each rendered club card below.
+    }
+}
+
+        if (message) message.textContent = "";
+    } catch (error) {
+        console.error("Clubs loading error:", error);
+        if (message) message.textContent =
+            "Clubs load nahi hue. Firestore Rules aur Firebase Console check karein.";
+        clubsList.textContent = "Data load nahi ho saka.";
+        if (eventsList) eventsList.textContent = "Events load nahi ho sake.";
+        if (opportunitiesList) opportunitiesList.textContent = "Opportunities load nahi ho sakin.";
+    }
+};
+
+
+
+// =========================
+// CLUBS ADMIN FUNCTIONS
+// =========================
+
+function requireClubsAdmin() {
+    if (!currentUser || currentUser.uid !== ADMIN_UID) {
+        throw new Error("Admin permission required.");
+    }
+}
+
+window.resetClubForm = function () {
+    ["clubEditId", "clubNameInput", "clubCategoryInput",
+     "clubContactInput", "clubDescriptionInput"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+    });
+};
+
+window.saveClub = async function () {
+    const msg = document.getElementById("clubsAdminMessage");
+    try {
+        requireClubsAdmin();
+
+        const id = document.getElementById("clubEditId").value.trim();
+        const name = document.getElementById("clubNameInput").value.trim();
+        const category = document.getElementById("clubCategoryInput").value.trim();
+        const contact = document.getElementById("clubContactInput").value.trim();
+        const description = document.getElementById("clubDescriptionInput").value.trim();
+
+        if (!name) throw new Error("Club name required.");
+
+        const data = {
+            name, category, contact, description,
+            active: true,
+            updatedAt: serverTimestamp()
+        };
+
+        if (id) {
+            await updateDoc(doc(db, "clubs", id), data);
+        } else {
+            data.createdAt = serverTimestamp();
+            await addDoc(collection(db, "clubs"), data);
+        }
+
+        if (msg) msg.textContent = "Club save ho gaya.";
+        window.resetClubForm();
+        await window.loadClubsPage();
+    } catch (e) {
+        console.error("Save club error:", e);
+        if (msg) msg.textContent = "Club save nahi hua. Admin login aur Firestore Rules check karein.";
+    }
+};
+
+window.editClub = function (id, name, category, contact, description) {
+    try {
+        requireClubsAdmin();
+        document.getElementById("clubEditId").value = id;
+        document.getElementById("clubNameInput").value = name || "";
+        document.getElementById("clubCategoryInput").value = category || "";
+        document.getElementById("clubContactInput").value = contact || "";
+        document.getElementById("clubDescriptionInput").value = description || "";
+        document.getElementById("clubNameInput").scrollIntoView({ behavior: "smooth" });
+    } catch (e) {
+        alert("Admin permission required.");
+    }
+};
+
+window.deleteClub = async function (id) {
+    const msg = document.getElementById("clubsAdminMessage");
+    try {
+        requireClubsAdmin();
+        if (!confirm("Is club ko delete karna hai?")) return;
+        await deleteDoc(doc(db, "clubs", id));
+        if (msg) msg.textContent = "Club delete ho gaya.";
+        await window.loadClubsPage();
+    } catch (e) {
+        console.error("Delete club error:", e);
+        if (msg) msg.textContent = "Club delete nahi hua. Firestore Rules check karein.";
+    }
+};
+
+window.updateClubApplication = async function (id, status) {
+    const msg = document.getElementById("clubsAdminMessage");
+    try {
+        requireClubsAdmin();
+        if (!["Approved", "Rejected"].includes(status)) {
+            throw new Error("Invalid application status.");
+        }
+        await updateDoc(doc(db, "clubApplications", id), {
+            status,
+            reviewedAt: serverTimestamp(),
+            reviewedBy: currentUser.uid
+        });
+        if (msg) msg.textContent = "Application status update ho gaya.";
+        await window.loadClubsPage();
+    } catch (e) {
+        console.error("Application review error:", e);
+        if (msg) msg.textContent = "Status update nahi hua. Firestore Rules check karein.";
+    }
+};
+
+window.saveClubEvent = async function () {
+    const msg = document.getElementById("clubsAdminMessage");
+    try {
+        requireClubsAdmin();
+        const title = document.getElementById("clubEventTitle").value.trim();
+        const date = document.getElementById("clubEventDate").value;
+        const clubName = document.getElementById("clubEventName").value.trim();
+        const description = document.getElementById("clubEventDescription").value.trim();
+        if (!title) throw new Error("Event title required.");
+
+        await addDoc(collection(db, "clubEvents"), {
+            title, date, clubName, description,
+            active: true, createdAt: serverTimestamp(),
+            createdBy: currentUser.uid
+        });
+
+        ["clubEventTitle", "clubEventDate", "clubEventName", "clubEventDescription"]
+            .forEach(id => document.getElementById(id).value = "");
+        if (msg) msg.textContent = "Event add ho gaya.";
+        await window.loadClubsPage();
+    } catch (e) {
+        console.error("Save event error:", e);
+        if (msg) msg.textContent = "Event save nahi hua. Firestore Rules check karein.";
+    }
+};
+
+window.saveClubOpportunity = async function () {
+    const msg = document.getElementById("clubsAdminMessage");
+    try {
+        requireClubsAdmin();
+        const title = document.getElementById("clubOpportunityTitle").value.trim();
+        const deadline = document.getElementById("clubOpportunityDeadline").value;
+        const link = document.getElementById("clubOpportunityLink").value.trim();
+        const description = document.getElementById("clubOpportunityDescription").value.trim();
+        if (!title) throw new Error("Opportunity title required.");
+
+        if (link && !/^https?:\/\//i.test(link)) {
+            throw new Error("Opportunity link http:// ya https:// se shuru hona chahiye.");
+        }
+
+        await addDoc(collection(db, "clubOpportunities"), {
+            title, deadline, link, description,
+            active: true, createdAt: serverTimestamp(),
+            createdBy: currentUser.uid
+        });
+
+        ["clubOpportunityTitle", "clubOpportunityDeadline",
+         "clubOpportunityLink", "clubOpportunityDescription"]
+            .forEach(id => document.getElementById(id).value = "");
+        if (msg) msg.textContent = "Opportunity add ho gayi.";
+        await window.loadClubsPage();
+    } catch (e) {
+        console.error("Save opportunity error:", e);
+        if (msg) msg.textContent = "Opportunity save nahi hui. Firestore Rules check karein.";
+    }
+};
+
+
+window.applyToClub = async function (clubId, clubName) {
+    const message = document.getElementById("clubsMessage");
+
+    if (!currentUser) {
+        if (message) message.textContent = "Apply karne se pehle login karein.";
+        return;
+    }
+    if (currentUser.uid === ADMIN_UID) {
+        if (message) message.textContent = "Admin account se student application submit nahi hoti.";
+        return;
+    }
+
+    try {
+        const existing = await getDocs(query(
+            collection(db, "clubApplications"),
+            where("studentUid", "==", currentUser.uid),
+            where("clubId", "==", clubId)
+        ));
+
+        if (!existing.empty) {
+            if (message) message.textContent = "Aap is club mein pehle hi apply kar chuke hain.";
+            return;
+        }
+
+        await addDoc(collection(db, "clubApplications"), {
+            clubId,
+            clubName,
+            studentUid: currentUser.uid,
+            studentEmail: currentUser.email || "",
+            status: "Pending",
+            createdAt: serverTimestamp()
+        });
+
+        if (message) message.textContent = "Application submit ho gayi! Status Pending hai.";
+        await window.loadClubsPage();
+    } catch (error) {
+        console.error("Club application error:", error);
+        if (message) message.textContent =
+            "Application submit nahi hui. Firestore Rules check karein.";
+    }
+};
+
 </script>
 
 <script>
