@@ -35,6 +35,13 @@ import {
   deleteObject
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-storage.js";
 
+import {
+  getMessaging,
+  getToken,
+  onMessage,
+  isSupported
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-messaging.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyCnEXaS5LuodPbxbXBMgANpkA4ipmdGQ8E",
   authDomain: "sliet-connect.firebaseapp.com",
@@ -49,9 +56,20 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
 
+const messagingPromise = isSupported()
+  .then((supported) => supported ? getMessaging(app) : null)
+  .catch((error) => {
+    console.warn("Firebase Messaging available nahi hai:", error);
+    return null;
+  });
+
+
 console.log("SLIET CONNECT Firebase initialized!");
 
 export {
+  messagingPromise,
+  getToken,
+  onMessage,
   db,
   auth,
   storage,

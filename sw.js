@@ -1,3 +1,52 @@
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+
+  event.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true })
+      .then((windowClients) => {
+        for (const client of windowClients) {
+          if ("focus" in client) return client.focus();
+        }
+
+        if (clients.openWindow) return clients.openWindow("/");
+      })
+  );
+});
+
+// SLIET_CONNECT_FIREBASE_MESSAGING
+importScripts(
+  "https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js",
+  "https://www.gstatic.com/firebasejs/12.4.0/firebase-messaging-compat.js"
+);
+
+firebase.initializeApp({
+  apiKey: "AIzaSyCnEXaS5LuodPbxbXBMgANpkA4ipmdGQ8E",
+  authDomain: "sliet-connect.firebaseapp.com",
+  projectId: "sliet-connect",
+  storageBucket: "sliet-connect.firebasestorage.app",
+  messagingSenderId: "504766146769",
+  appId: "1:504766146769:web:2e0422a130cae03d5bfdf0"
+});
+
+const firebaseMessaging = firebase.messaging();
+
+// SLIET_CONNECT_BACKGROUND_NOTIFICATION
+firebaseMessaging.onBackgroundMessage((payload) => {
+  const notification = payload.notification || {};
+
+  return self.registration.showNotification(
+    notification.title || "SLIET CONNECT",
+    {
+      body: notification.body || "Aapke liye naya update hai.",
+      icon: "/icon-192.png",
+      data: payload.data || {}
+    }
+  );
+});
+
+
+
+
 const CACHE_NAME = "sliet-connect-v1";
 const APP_SHELL = [
   "/",

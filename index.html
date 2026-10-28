@@ -669,6 +669,14 @@ body.dark-mode hr {
         aria-pressed="false">
         🌙 Dark Mode
     </button>
+
+    <button
+        type="button"
+        id="enableNotificationsBtn"
+        style="margin:10px;padding:10px 16px;border-radius:8px;cursor:pointer;"
+    >
+        🔔 Enable Notifications
+    </button>
 </header>
 
 <main class="container">
@@ -1795,10 +1803,86 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
-  serverTimestamp
+  serverTimestamp,
+  messagingPromise,
+  getToken,
+  onMessage,
 } from "./firebase.js";
 
 const ADMIN_UID = "RGVNB4ZTPyP76BqvGeNvxSboSNL2";
+
+// SLIET_CONNECT_FCM_CLIENT_SETUP
+const FCM_VAPID_KEY = "BJT2Z3vD9aJbzRdl4_SBoKJ-OurwDKQ4-niejUtzuppcLOTOqw9GZ1tCgciKx6xDDeSPFu5-Ge24lOgROZ22cI8";
+
+const notificationButton = document.getElementById("enableNotificationsBtn");
+
+if (notificationButton) {
+  notificationButton.addEventListener("click", async () => {
+    const originalText = "🔔 Enable Notifications";
+    notificationButton.disabled = true;
+    notificationButton.textContent = "Enabling notifications...";
+
+    try {
+      if (!("Notification" in window) || !("serviceWorker" in navigator)) {
+        throw new Error("Is browser mein web notifications supported nahi hain.");
+      }
+
+      if (!window.isSecureContext) {
+        throw new Error("Notifications ke liye HTTPS website zaroori hai.");
+      }
+
+      const permission = await Notification.requestPermission();
+
+      if (permission !== "granted") {
+        throw new Error("Notification permission allow nahi hui.");
+      }
+
+      const messaging = await messagingPromise;
+
+      if (!messaging) {
+        throw new Error("Is browser mein Firebase Messaging supported nahi hai.");
+      }
+
+      const registration = await navigator.serviceWorker.ready;
+
+      const token = await getToken(messaging, {
+        vapidKey: FCM_VAPID_KEY,
+        serviceWorkerRegistration: registration
+      });
+
+      if (!token) {
+        throw new Error("FCM token nahi mila. Browser aur Firebase settings check karein.");
+      }
+
+      window.slietFCMToken = token;
+      notificationButton.textContent = "✅ Notifications Enabled";
+      notificationButton.disabled = false;
+
+      console.log("SLIET CONNECT FCM token generated.");
+      alert("Notifications enable ho gayi hain! FCM token generate ho gaya.");
+
+    } catch (error) {
+      console.error("FCM setup error:", error);
+      notificationButton.disabled = false;
+      notificationButton.textContent = originalText;
+      alert("Notifications setup nahi hua: " + (error.message || error));
+    }
+  });
+
+  if (typeof onMessage === "function") {
+    messagingPromise.then((messaging) => {
+      if (!messaging) return;
+
+      onMessage(messaging, (payload) => {
+        const title = payload.notification?.title || "SLIET CONNECT";
+        const body = payload.notification?.body || "Aapke liye naya update hai.";
+
+        alert(title + "\n" + body);
+      });
+    }).catch((error) => console.warn("Foreground messaging setup error:", error));
+  }
+}
+
 
 let currentUser = null;
 let authReady = false;
